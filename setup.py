@@ -17,7 +17,7 @@ setup(
     url = 'https://github.com/gnrfan/django-sequence-field',
     long_description = long_description,
     packages = ['sequence_field'],
-    install_requires = ['django >= 1.6'],
+    install_requires = ['django >= 2.0'],
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
