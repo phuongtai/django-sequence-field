@@ -7,10 +7,8 @@ from sequence_field import strings
 from sequence_field import constants
 from sequence_field import settings as sequence_field_settings
 
-# Sequence Field
 
 class Sequence(models.Model):
-
     key = models.CharField(
         verbose_name=strings.SEQUENCE_KEY,
         max_length=constants.SEQUENCE_KEY_LENGTH,
@@ -25,15 +23,15 @@ class Sequence(models.Model):
     template = models.CharField(
         verbose_name=strings.SEQUENCE_TEMPLATE,
         max_length=constants.SEQUENCE_TEMPLATE_LENGTH,
-        default=sequence_field_settings.SEQUENCE_FIELD_DEFAULT_TEMPLATE 
+        default=sequence_field_settings.SEQUENCE_FIELD_DEFAULT_TEMPLATE
     )
 
-    created = models.DateTimeField(
+    created_at = models.DateTimeField(
         verbose_name=strings.SEQUENCE_CREATED,
         auto_now_add=True
     )
 
-    updated = models.DateTimeField(
+    updated_at = models.DateTimeField(
         verbose_name=strings.SEQUENCE_UPDATED,
         auto_now=True
     )
@@ -54,7 +52,7 @@ class Sequence(models.Model):
                    expanders=None, commit=True):
 
         default_template = self.template
-        
+
         default_expanders = \
             sequence_field_settings.SEQUENCE_FIELD_DEFAULT_EXPANDERS
 
@@ -76,7 +74,9 @@ class Sequence(models.Model):
             # If a template is provided the first time it gets stored
             if created and template is not None:
                 seq.template = template
-                seq.save()
+            else:
+                seq.template = default_template
+            seq.save()
             return seq
         except OperationalError:
             return None
